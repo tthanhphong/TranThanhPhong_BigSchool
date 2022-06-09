@@ -126,6 +126,7 @@ namespace TranThanhPhong_BigSchool.Controllers
             context.Courses.Remove(courses);
             context.SaveChanges();
             return RedirectToAction("Mine");
+            //
         }
     }
 }
