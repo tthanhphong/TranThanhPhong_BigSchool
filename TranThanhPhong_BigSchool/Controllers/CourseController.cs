@@ -3,14 +3,15 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 using TranThanhPhong_BigSchool.Models;
-
 namespace TranThanhPhong_BigSchool.Controllers
 {
     public class CourseController : Controller
     {
+
         public ActionResult Create()
         {
             BigSchoolContext context = new BigSchoolContext();
@@ -85,7 +86,7 @@ namespace TranThanhPhong_BigSchool.Controllers
             var listFollwee = context.Followings.Where(p => p.FollowerId == currentUser.Id).ToList();
 
             //danh sách các khóa học mà người dùng đã đăng ký
-            var listAttendances = context.Attendances.Where(p => p.Attendee ==currentUser.Id).ToList();
+            var listAttendances = context.Attendances.Where(p => p.Attendee == currentUser.Id).ToList();
 
             var courses = new List<Course>();
             foreach (var course in listAttendances)
@@ -95,13 +96,29 @@ namespace TranThanhPhong_BigSchool.Controllers
                     if (item.FolloweeId == course.Course.LecturerId)
                     {
                         Course objCourse = course.Course;
-                        objCourse.LecturerId =System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(objCourse.LecturerId).Name;
+                        objCourse.LecturerId = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(objCourse.LecturerId).Name;
                         courses.Add(objCourse);
                     }
                 }
             }
             return View(courses);
         }
+        ///edit
+        /*[Authorize]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            BigSchoolContext context = new BigSchoolContext();
+            var course = context.Courses.Single(c => c.Id == id && c.LecturerId == userId);
 
+            var viewModel = new Course
+            {
+                ListCategory = context.Categories.ToList(),
+                DateTime = course.DateTime.ToString("dd/MM/yyyy"),
+                Place = course.Place
+            };
+            return View("Create", viewModel);
+
+        }*/
     }
 }

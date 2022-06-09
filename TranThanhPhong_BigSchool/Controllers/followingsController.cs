@@ -23,8 +23,7 @@ namespace TranThanhPhong_BigSchool.Controllers
 
             BigSchoolContext context = new BigSchoolContext();
             //kiểm tra xem mã userID đã được theo dõi chưa
-            Following find = context.Followings.FirstOrDefault(p => p.FollowerId == userID
-            && p.FolloweeId == follow.FolloweeId);
+            Following find = context.Followings.FirstOrDefault(p => p.FollowerId == userID && p.FolloweeId == follow.FolloweeId);
             if (find != null)
             {
                 // return BadRequest("The already following exists!");

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TranThanhPhong_BigSchool.Models.Course>
+﻿    @model IEnumerable<TranThanhPhong_BigSchool.Models.Course>
 
 @{
     ViewBag.Title = "Index";
@@ -24,11 +24,11 @@
                         {
                             if (course.isShowFollow)
                             {
-                                <button data-course-id="@course.LecturerId" class="btn btn-default btn-sm js-tongle-follow">Follow</button>
+                                <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-tongle-follow">Follow</button>
                             }
                             else
                             {
-                                <button data-course-id="@course.LecturerId" class="btn btn-success btn-sm js-tongle-follow">Following</button>
+                                <button data-user-id="@course.LecturerId" class="btn btn-success btn-sm js-tongle-follow">Following</button>
                             }
                         }
                     </span>
@@ -80,9 +80,7 @@
             //////////
                 $(".js-tongle-follow").click(function (e) {
                     var button = $(e.target);
-
                     var followee = button.attr("data-user-id");
-
                     $.post("/api/followings", { FolloweeId: button.attr("data-user-id") })
                         .done(function (result) {
                             if (result == "cancel") {
