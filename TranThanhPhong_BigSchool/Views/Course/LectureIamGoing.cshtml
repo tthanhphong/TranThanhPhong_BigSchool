@@ -4,6 +4,7 @@
     ViewBag.Title = "LectureIamGoing";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Lecture</h2>
 <div class="row">
     <ul class="course">
         @foreach (var course in Model)
@@ -20,8 +21,9 @@
                 </div>
 
                 <div class="details">
-
-                    <span class="lecture">@course.LecturerId</span>
+                    <span class="lecture">
+                    @course.LectureName
+                    .</span>
                     <br />
                     <span class="category">@course.Category.Name</span>
                 </div>

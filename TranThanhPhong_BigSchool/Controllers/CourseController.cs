@@ -94,7 +94,7 @@ namespace TranThanhPhong_BigSchool.Controllers
                     if (item.FolloweeId == course.Course.LecturerId)
                     {
                         Course objCourse = course.Course;
-                        objCourse.LecturerId = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(objCourse.LecturerId).Name;
+                        objCourse.LectureName = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(objCourse.LecturerId).Name;
                         courses.Add(objCourse);
                     }
                 }
@@ -118,5 +118,14 @@ namespace TranThanhPhong_BigSchool.Controllers
             return View("Create", viewModel);
 
         }*/
+        //
+        public ActionResult Delete(int Id)
+        {
+            BigSchoolContext context = new BigSchoolContext();
+            var courses = context.Courses.Find(Id);
+            context.Courses.Remove(courses);
+            context.SaveChanges();
+            return RedirectToAction("Mine");
+        }
     }
 }
